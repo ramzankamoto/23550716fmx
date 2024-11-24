@@ -6,11 +6,8 @@ output:
 
 # Purpose
 
-Purpose of this work folder.
 
-Ideally store a minimum working example data set in data folder.
-
-Add binary files in bin, and closed R functions in code. Human Readable settings files (e.g. csv) should be placed in settings/
+This is the main platform for my Fin Metrics exam. 
 
 
 ```{r}
@@ -20,5 +17,23 @@ gc() # garbage collection - It can be useful to call gc after a large object has
 library(tidyverse)
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
 ```
+
+## Question 1 
+
+Some summary of the question here 
+
+## Load Data
+
+```{r}
+# Some code for the question here
+x <- 100
+
+```
+
+## Wrangle 
+
+## Plots and Solutions 
+
+## Question 2 
 
 
