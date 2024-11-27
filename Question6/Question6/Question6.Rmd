@@ -1,0 +1,86 @@
+---
+title: "backup"
+author: "Ramzan Kamoto"
+date: "2024-11-27"
+output: html_document
+---
+
+## Portfolio Construction 
+
+
+
+```{r setup, include=FALSE}
+
+rm(list = ls()) # Clean your environment:
+gc() # garbage collection - It can be useful  to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
+library(tidyverse)
+list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
+```
+
+## Load data 
+
+```{r}
+
+maa <- read_rds("/Users/ramzankamoto/Documents/Masters/Fin Metrics/23550716fmx/data/MAA.rds")
+
+msci <-read_rds("/Users/ramzankamoto/Documents/Masters/Fin Metrics/23550716fmx/data/msci.rds") %>% 
+    filter(Name %in% c("MSCI_ACWI", "MSCI_USA", "MSCI_RE", "MSCI_Jap"))
+
+
+```
+
+
+
+## Wrangle and Plots 
+
+
+
+```{r}
+# Process Data
+processed_data <- process_data_q6(maa, msci)
+
+# Calculate Monthly Returns
+maa_returns <- calculate_monthly_returns_q6(processed_data$maa)
+msci_returns <- calculate_monthly_returns_q6(processed_data$msci)
+
+# Combine Data
+combined_data <- combine_data_q6(maa_returns, msci_returns)
+
+# Make Data Wide
+return_mat <- make_data_wide_q6(combined_data)
+
+# Impute Missing Values
+return_mat <- impute_missing_returns(return_mat, impute_returns_method = "Drawn_Distribution_Own")
+
+# Covariance Matrix and Mean
+return_mat_Nodate <- data.matrix(return_mat[, -1])
+Sigma_LW <- RiskPortfolios::covEstimation(return_mat_Nodate, control = list(type = "lw"))
+Sigma_LW <- as.matrix(Matrix::nearPD(Sigma_LW)$mat)
+Mu <- return_mat %>%
+  summarise(across(-date, ~prod(1 + .)^(1 / n()) - 1)) %>%
+  purrr::as_vector()
+
+# Setup Constraints
+constraints <- setup_constraints(Sigma_LW, Mu)
+
+# Optimize Portfolio
+#optimal_weights <- optimize_portfolio(Sigma_LW, Mu, constraints)
+
+# Rolling Optimization
+EOM_datevec <- return_mat %>%
+  select(date) %>%
+  unique() %>%
+  mutate(YM = format(date, "%Y-%m")) %>%
+  group_by(YM) %>%
+  filter(date == last(date)) %>%
+  ungroup() %>%
+  pull(date) %>%
+  unique()
+
+Result <- EOM_datevec %>%
+  map_df(~Roll_optimizer(return_mat, EOM_date = ., LookBackSel = 36))
+
+Result
+
+```
+
