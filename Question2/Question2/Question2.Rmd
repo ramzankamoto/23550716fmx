@@ -7,6 +7,15 @@ output: html_document
 
 ## Currency Hedging Analysis 
 
+For question 2 I first try to replicate the plot in the paper provided to establish a negative correlation between Global returns and ZAR exchange rate. 
+
+To do this I create a global, unhedged and hedged portfolio and ensure that the global portfolio has no local holdings. 
+
+I then plot the scatter plot using these portfolios and fit a grey regression line to show the negative correlation. To compute the densities in the x and y axis I use the package ggMarginals from ggExtra. I struggled to make notable further improvements to the plot. 
+
+For the statistics table I wrote a function compute_portfolio_stats to make sure all values are annualized. I suspect there was an issue with my calculations because my numbers are far off the paper. At the very least the sign global portfolio and the ZAR is negative indeed. 
+
+
 ```{r setup, include=FALSE}
 rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.

@@ -3,8 +3,10 @@
 This is the main platform for my Fin Metrics exam.
 
     ##           used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-    ## Ncells 2661496 142.2    4033671 215.5         NA  4033671 215.5
-    ## Vcells 5460992  41.7   12465617  95.2      16384 12465617  95.2
+    ## Ncells 2055017 109.8    4086234 218.3         NA  2473380 132.1
+    ## Vcells 4154231  31.7    8388608  64.0      16384  6222605  47.5
+
+    ## Warning: package 'xts' was built under R version 4.3.3
 
 ## Question 1
 

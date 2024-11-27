@@ -13,8 +13,9 @@ This is the main platform for my Fin Metrics exam.
 
 rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
-library(tidyverse); library(ggExtra); library(dplyr); library(ggplot2); library(rmsfuns); library(PerformanceAnalytics); library(tbl2xts)
+library(tidyverse); library(ggExtra); library(dplyr); library(ggplot2); library(rmsfuns); library(PerformanceAnalytics); library(tbl2xts);library(zoo)
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
+
 ```
 ## Question 1
 

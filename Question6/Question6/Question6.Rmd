@@ -7,7 +7,17 @@ output: html_document
 
 ## Portfolio Construction 
 
+For the final question I attempt to optimise a portfolio. 
 
+I start by making the data monthly as suggested in the question and make returns from that. 
+
+I then collated the two datasets. For simplicity, I only wanted to consider equities and credit instruments. So from the MAA dataset I considered everything to be credit including currencies and Rates. 
+
+I then set up the return matrix and impute missing returns using the drawn own distribution method in order to make the matrix square. I then apply Ledoit Wolf shrinkage to my matrix and set my return vector. 
+
+I tried to set the constraints in accordance with the questions specifications but i suspect this is where I started to have issues because my Amat and dvec were not compatible. I did check the dimentions and the length of the vector was equal to the number of rows in Amat but it did not converge. 
+
+For this reason, I commented the optimizer to stop it from stopping the entire workflow. The remainder was adding a Roll_optimizer as in the practical with adhoc constraints just to get some inference on which indexes would be preferred under different risk types. 
 
 ```{r setup, include=FALSE}
 

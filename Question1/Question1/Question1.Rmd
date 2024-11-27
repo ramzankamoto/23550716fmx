@@ -9,6 +9,18 @@ output:
 
 ## Systematic AI Fund 
 
+For this question we had to analyse our AI fund in relation to its benchmark as well as other active managers and then try to replicate the figure from Sharpe. 
+
+I started by identifying a fund which had the median value for returns over the entire period. Note here that i did not use chaining, I simply took the mean of each active fund and took the median fund. 
+
+I then calculate returns net of fees by adapting the fees converter function discussed during the semester. 
+
+Finally I align my median funds returns net of fees with the AI fund and the BM. 
+
+The density plot shows the median funds returns are highly concentrated around zero and clearly struggles to outperform the BM. 
+
+The 12 month rolling return shows the BM and AI fund are highly correlated and in most periods the AI fund is superior. 
+
 
 ```{r setup, include=FALSE}
 
@@ -16,6 +28,7 @@ rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
 library(tidyverse)
 library(dplyr)
+library(zoo)
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
 ```
 
@@ -56,4 +69,3 @@ plot_rolling_density_q1(aligned_data,
 
 
 ```
-
