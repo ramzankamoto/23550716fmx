@@ -1,5 +1,5 @@
 ---
-title: "backup"
+title: "Questioon6"
 author: "Ramzan Kamoto"
 date: "2024-11-27"
 output: html_document
@@ -31,11 +31,7 @@ msci <-read_rds("/Users/ramzankamoto/Documents/Masters/Fin Metrics/23550716fmx/d
 
 
 
-## Wrangle and Plots 
-
-
-
-```{r}
+```{r, echo=FALSE}
 # Process Data
 processed_data <- process_data_q6(maa, msci)
 
@@ -83,4 +79,5 @@ Result <- EOM_datevec %>%
 Result
 
 ```
+
 
